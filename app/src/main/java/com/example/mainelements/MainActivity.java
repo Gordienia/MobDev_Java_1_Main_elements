@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         AdapterView.OnItemClickListener{
@@ -76,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         mNameList.add(mainEditText.getText().toString());
+        Set<String> set = new HashSet<>(mNameList);
+        mNameList.clear();
+        mNameList.addAll(set);
         mArrayAdapter.notifyDataSetChanged();
     }
 
@@ -84,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d("omg android", position + ": " + mNameList.get(position));
         mainTextView.setText(mNameList.get(position).toString()
                 + " is learning Android development!");
+        mNameList.remove(position);
+        mArrayAdapter.notifyDataSetChanged();
     }
 
 
